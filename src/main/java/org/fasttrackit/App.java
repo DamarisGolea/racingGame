@@ -64,5 +64,10 @@ public class App
 
         System.out.println("Total vehicles: " + Vehicle.getTotalCount());
 
+
+        car2.accelerate(100);
+
+        new AutoVehicle();
+
     }
 }
