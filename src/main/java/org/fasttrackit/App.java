@@ -69,5 +69,7 @@ public class App
 
         new AutoVehicle();
 
+        new Car();
     }
+
 }
