@@ -46,6 +46,9 @@ public class Game {
                 }
             }
         }
+//        do {
+//            System.out.println("Doing something");
+//        } while (winnerNotKnown);
     }
 
     private double getSpeedFromUser() {
