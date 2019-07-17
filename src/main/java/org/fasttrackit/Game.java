@@ -19,11 +19,44 @@ public class Game {
 
         int competitorCount = getCompetitorCountFromUser();
 
-        for (int i = 0; i< competitorCount; i++){
+        for (int i = 0; i < competitorCount; i++) {
             addCompetitor();
         }
 
         displayCompetitors();
+
+        boolean winnerNotKnown = true;
+        int competitorsWithoutFuel = 0;
+
+        while (winnerNotKnown && competitorsWithoutFuel < competitors.size()) {
+            // enhanced for / for-each - for each competitor of competitors
+            for (Vehicle competitor : competitors) {
+                double speed = getSpeedFromUser();
+                competitor.accelerate(speed);
+                //competitor.accelerate(getSpeedFromUser()); (same thing)
+
+                if (competitor.getTraveledDistance() >= selectedTrack.getLenght()) {
+                    System.out.println("Congrats! The winner is: " + competitor.getName());
+                    winnerNotKnown = false;
+                    break;
+                }
+
+                if (competitor.getFuelLevel() <= 0) {
+                    competitorsWithoutFuel++;
+                }
+            }
+        }
+    }
+
+    private double getSpeedFromUser() {
+        System.out.println("Please enter acceleration speed:");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            return scanner.nextDouble();
+        } catch (InputMismatchException e) {
+            System.out.println("You have entered an invalid value.");
+            return getSpeedFromUser();
+        }
     }
 
     private Track getTrackSelectedByUser() {
@@ -53,18 +86,18 @@ public class Game {
         competitors.add(vehicle);
     }
 
-    private String getVehicleNameFromUser (){
+    private String getVehicleNameFromUser() {
         System.out.println("Please enter vehicle name:");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    private int getCompetitorCountFromUser () throws Exception {
+    private int getCompetitorCountFromUser() throws Exception {
         System.out.println("Please enter vehicle count:");
         Scanner scanner = new Scanner(System.in);
         try {
             return scanner.nextInt();
-        } catch (InputMismatchException e ) {
+        } catch (InputMismatchException e) {
             throw new Exception("You entered an invalid value.");
         } finally {
             //finally block is always executed
